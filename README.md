@@ -3,7 +3,7 @@
 [npm-url]: https://npmjs.org/package/gulp
 [npm-image]: http://img.shields.io/npm/v/gulp.svg
 
-[travis-url]: https://travis-ci.org/gulpjs/gulp
+[travis-url]: https://travis-ci.org/christopher-johnson/wdqs-gui
 [travis-image]: http://img.shields.io/travis/gulpjs/gulp.svg
 
 [coveralls-url]: https://coveralls.io/r/gulpjs/gulp

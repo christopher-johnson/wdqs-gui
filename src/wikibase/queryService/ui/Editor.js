@@ -18,8 +18,8 @@ function Editor( $, Mod, Tooltip) {
 			"mode": 'sparql',
 			"extraKeys": { 'Ctrl-Space': 'autocomplete' },
 			"viewportMargin": Infinity
-		},
-	this.ERROR_LINE_MARKER = null,
+		};
+	this.ERROR_LINE_MARKER = null;
 	this.ERROR_CHARACTER_MARKER = null;
 	this.CodeMirror = Mod;
 	this.tooltip = Tooltip;

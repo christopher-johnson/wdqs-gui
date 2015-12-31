@@ -23,7 +23,7 @@ function App( $element, Mod, Editor, SparqlApi, QuerySamples, Tooltip, QueryExam
 	this._$element = $element;
 	this._queryExampleDialog = QueryExampleDialog;
 	this._RdfNamespaces = RdfNamespaces;
-	this._init($, SparqlApi, QuerySamples, Editor, RdfNamespaces, Mod, Tooltip);
+	this._init($, SparqlApi, QuerySamples, Editor, Mod, Tooltip);
 }
 
 /**
