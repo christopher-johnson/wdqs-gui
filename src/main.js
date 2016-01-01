@@ -27,7 +27,7 @@ var Vis = require('vis');
 require('bootstrap');
 
 require('./wdqs.js')($, Vis);
-var Explorer = require('./wdqs-explorer.js');
+var Explorer = require('./wdqsExplorer.js');
 require('./wikibase/codemirror/addon/hint/wikibaseSparqlHint.js');
 require('./wikibase/codemirror/addon/hint/wikibaseRdfHint.js');
 var Mod = require('codemirror');

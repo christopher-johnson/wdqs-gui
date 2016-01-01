@@ -28,22 +28,41 @@ function Explorer( $, Vis, attachContent, rootId ) {
     var nodes = new Vis.DataSet();
     var edges = new Vis.DataSet();
 
-    var network = new Vis.Network(
-      graphContainer,
-      { nodes: nodes, edges: edges }
-    );
-
     var options = {
       autoResize: true,
       height: '100%',
       width: '100%',
-      nodes:{
-        color: '#E4DFDF',
-        fixed: false,
-        font: '9px arial'
-       }
+        layout: {
+            improvedLayout:true,
+            randomSeed:2
+        },
+        nodes:{
+            color: '#E4DFDF',
+            fixed: false,
+            font: '9px arial',
+            y: 0
+        },
+        edges:{
+            color: '#E4DFDF',
+            fixed: false,
+            font: '9px arial'
+        },
+        physics:{
+            maxVelocity: 25
+        },
+        scaling:{
+            label: {
+                min:8,
+                max:20
+            }
+        }
     };
-    network.setOptions(options);
+
+    var network = new Vis.Network(
+        graphContainer,
+        { nodes: nodes, edges: edges },
+        options
+    );
 
     network.on('doubleClick', function (properties) {
       if (properties.nodes.length === 1) {
