@@ -12,12 +12,25 @@ module.exports = Editor;
  * @constructor
  */
 function Editor( $, Mod, Tooltip) {
+	require('codemirror/addon/hint/show-hint');
+	require('../../codemirror/lib/grammar/tokenizer.js');
 	this.CODEMIRROR_DEFAULTS = {
-			"lineNumbers": true,
-			"matchBrackets": true,
-			"mode": 'sparql',
-			"extraKeys": { 'Ctrl-Space': 'autocomplete' },
-			"viewportMargin": Infinity
+			mode: 'sparql11',
+			extraKeys: { 'Ctrl-Space': 'autocomplete' },
+			viewportMargin: Infinity,
+			value: "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\nSELECT * WHERE {\n  ?sub ?pred ?obj .\n} \nLIMIT 10",
+			highlightSelectionMatches: {
+				showToken: /\w/
+			},
+			tabMode: "indent",
+			lineNumbers: true,
+			lineWrapping: true,
+			backdrop: false,
+			collapsePrefixesOnLoad: false,
+			gutters: ["gutterErrorBar", "CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+			matchBrackets: true,
+			fixedGutter: true,
+			syntaxErrorCheck: true
 		};
 	this.ERROR_LINE_MARKER = null;
 	this.ERROR_CHARACTER_MARKER = null;
@@ -43,7 +56,7 @@ Editor.prototype.fromTextArea = function( element ) {
 	this._editor.on( 'change', function ( editor, changeObj ) {
 		self.clearError();
 		if( changeObj.text[0] === '?' ){
-			editor.showHint({closeCharacters: /[\s]/});
+			this._editor.showHint({closeCharacters: /[\s]/});
 		}
 	} );
 	this._editor.focus();
