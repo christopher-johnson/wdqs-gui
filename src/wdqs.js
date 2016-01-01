@@ -1,8 +1,6 @@
 'use strict';
-var $ = require('jquery');
 
-module.exports = function () {
-  var vis = require('vis');
+module.exports = function ($, vis) {
   var id = function (x) {
     return x;
   };
@@ -54,7 +52,7 @@ module.exports = function () {
   vis.wdqsQuery = function (query) {
     return future(function (k) {
       $.ajax({
-        url: '/bigdata/namespace/wdq/sparql',
+        url: 'https://query.wikidata.org/bigdata/namespace/wdq/sparql',
         data: { query: query },
         dataType: 'json',
         success: function (x) { return k(x.results.bindings); }

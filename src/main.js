@@ -23,23 +23,24 @@ module.exports = function(parent, options) {
 
 module.exports.$ = $;
 
-require('vis');
+var Vis = require('vis');
 require('bootstrap');
 
-require('./wdqs.js');
-require('./wdqs-explorer.js');
-require('./wikibase/codemirror/addon/hint/WikibaseSparqlHint.js');
-require('./wikibase/codemirror/addon/hint/WikibaseRdfHint.js');
+require('./wdqs.js')($, Vis);
+var Explorer = require('./wdqs-explorer.js');
+require('./wikibase/codemirror/addon/hint/wikibaseSparqlHint.js');
+require('./wikibase/codemirror/addon/hint/wikibaseRdfHint.js');
 var Mod = require('codemirror');
-var Tooltip = require('./wikibase/codemirror/addon/tooltip/WikibaseRDFTooltip.js');
-var Editor = require('./wikibase/queryService/ui/Editor.js');
-var QueryExampleDialog = require('./wikibase/queryService/ui/QueryExampleDialog.js');
-var Sparql = require('./wikibase/queryService/api/SparqlApi.js');
-var QuerySamples = require('./wikibase/queryService/api/QuerySamples.js');
-var RdfNamespaces = require('./wikibase/queryService/RdfNamespaces.js');
-var App = require('./wikibase/queryService/ui/App.js');
+var Tooltip = require('./wikibase/codemirror/addon/tooltip/wikibaseRDFTooltip.js');
+var Editor = require('./wikibase/queryService/ui/editor.js');
+var QueryExampleDialog = require('./wikibase/queryService/ui/queryExampleDialog.js');
+var Sparql = require('./wikibase/queryService/api/sparqlApi.js');
+var QuerySamples = require('./wikibase/queryService/api/querySamples.js');
+var RdfNamespaces = require('./wikibase/queryService/rdfNamespaces.js');
+var App = require('./wikibase/queryService/ui/app.js');
 
 
 $( document ).ready( function () {
-    new App($('.wikibase-queryservice'),Mod, Editor, Sparql, QuerySamples, Tooltip, QueryExampleDialog, RdfNamespaces);
+    new App($('.wikibase-queryservice'),Mod, Editor, Sparql, QuerySamples, Tooltip,
+        QueryExampleDialog, RdfNamespaces, Vis, Explorer);
 } );

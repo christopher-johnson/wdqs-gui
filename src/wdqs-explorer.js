@@ -1,8 +1,7 @@
 'use strict';
+module.exports = Explorer;
 
-module.exports = function ($, mw, attachContent) {
-
-  var initGraph = function (rootId) {
+function Explorer( $, Vis, attachContent, rootId ) {
 
     var graphContainer = document.createElement('div');
     graphContainer.style.height = '100%';
@@ -26,14 +25,25 @@ module.exports = function ($, mw, attachContent) {
     container.appendChild(clear);
     attachContent.append(container);
 
-    var nodes = new mw.vis.DataSet();
-    var edges = new mw.vis.DataSet();
+    var nodes = new Vis.DataSet();
+    var edges = new Vis.DataSet();
 
-    var network = new mw.vis.Network(
+    var network = new Vis.Network(
       graphContainer,
-      { nodes: nodes, edges: edges },
-      { edges: { style: 'arrow' } }
+      { nodes: nodes, edges: edges }
     );
+
+    var options = {
+      autoResize: true,
+      height: '100%',
+      width: '100%',
+      nodes:{
+        color: '#E4DFDF',
+        fixed: false,
+        font: '9px arial'
+       }
+    };
+    network.setOptions(options);
 
     network.on('doubleClick', function (properties) {
       if (properties.nodes.length === 1) {
@@ -126,8 +136,8 @@ module.exports = function ($, mw, attachContent) {
     };
  
     var getBindings = function (fromId) {
-      mw.wdqsGetOutgoingLinksById(fromId).sequence(
-        mw.wdqsGetIncomingLinksById(fromId)).apply(
+      Vis.wdqsGetOutgoingLinksById(fromId).sequence(
+        Vis.wdqsGetIncomingLinksById(fromId)).apply(
         function (bindingses) {
           showPanel(fromId, { outgoing: bindingses[0], incoming: bindingses[1] });
         }
@@ -180,14 +190,9 @@ module.exports = function ($, mw, attachContent) {
       }
     };
 
-    mw.wdqsGetLabelById(rootId).apply(
+    Vis.wdqsGetLabelById(rootId).apply(
       function (label) {
         addNode(rootId, label);
       }
     );
-
-  };
-
-  initGraph(mw.config.get('wgWikibaseItemId'));
-
-};
+  }
