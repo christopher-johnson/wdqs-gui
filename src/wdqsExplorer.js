@@ -3,23 +3,18 @@ module.exports = Explorer;
 
 function Explorer( $, Vis, attachContent, rootId ) {
 
+
     var graphContainer = document.createElement('div');
-    graphContainer.style.height = '100%';
-    graphContainer.style.width = '64em';
-    graphContainer.style.float = 'left';
+    graphContainer.className = "vis-graph";
 
     var panelContainer = document.createElement('div');
-    panelContainer.style.height = '100%';
-    panelContainer.style.width = '24em';
-    panelContainer.style.overflow = 'auto';
-    panelContainer.style.float = 'left';
+    panelContainer.className = "vis-panel";
 
     var clear = document.createElement('div');
     clear.style.clear = 'left';
 
     var container = document.createElement('div');
-    container.style.height = '48em';
-    container.style.width = '90em';
+    container.className = "vis-container";
     container.appendChild(graphContainer);
     container.appendChild(panelContainer);
     container.appendChild(clear);
@@ -29,11 +24,11 @@ function Explorer( $, Vis, attachContent, rootId ) {
     var edges = new Vis.DataSet();
 
     var options = {
-      autoResize: true,
-      height: '100%',
-      width: '100%',
+        autoResize: false,
+        width: '1200px',
+        height: '800px',
         layout: {
-            improvedLayout:true,
+            improvedLayout:false,
             randomSeed:1
         },
         nodes:{
