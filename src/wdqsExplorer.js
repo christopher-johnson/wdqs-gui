@@ -34,17 +34,12 @@ function Explorer( $, Vis, attachContent, rootId ) {
       width: '100%',
         layout: {
             improvedLayout:true,
-<<<<<<< HEAD:src/wdqsExplorer.js
             randomSeed:1
-=======
-            randomSeed:2
->>>>>>> 74dc2a4a5e25339e5a4f3c9c772178b9b1bd4c0c:src/wdqsExplorer.js
         },
         nodes:{
             color: '#E4DFDF',
             fixed: false,
-<<<<<<< HEAD:src/wdqsExplorer.js
-            font: '8px arial',
+            font: '8px arial'
         },
         edges:{
             color: '#E4DFDF',
@@ -58,23 +53,6 @@ function Explorer( $, Vis, attachContent, rootId ) {
             maxVelocity: 25,
             barnesHut: {
                 springLength: 55
-=======
-            font: '9px arial',
-            y: 0
-        },
-        edges:{
-            color: '#E4DFDF',
-            fixed: false,
-            font: '9px arial'
-        },
-        physics:{
-            maxVelocity: 25
-        },
-        scaling:{
-            label: {
-                min:8,
-                max:20
->>>>>>> 74dc2a4a5e25339e5a4f3c9c772178b9b1bd4c0c:src/wdqsExplorer.js
             }
         }
     };
