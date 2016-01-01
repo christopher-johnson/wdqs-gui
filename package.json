@@ -2,12 +2,12 @@
   "name": "wdqs-gui",
   "description": "Wikidata Query Service GUI",
   "version": "0.1.1",
-  "main": "src/main.js",
+  "main": "src/index.js",
   "license": "MIT",
   "author": "",
   "homepage": "https://query.wikidata.org",
   "scripts": {
-    "start": "node server/index.js",
+    "start": "node src/server.js",
     "lint": "jshint **.js"
   },
   "devDependencies": {
@@ -49,6 +49,7 @@
   "bugs": "https://phabricator.wikimedia.org",
   "keywords": [
     "JavaScript",
+    "Wikidata",
     "SPARQL",
     "Editor",
     "Semantic Web",
@@ -56,14 +57,14 @@
   ],
   "maintainers": [
     {
-      "name": "",
-      "email": "",
+      "name": "Christopher Johnson",
+      "email": "christopher.johnson@wikimedia.de",
       "web": ""
     }
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/christopher-johnson/wdqs-gui.git"
   },
   "dependencies": {
     "bootstrap": "latest",

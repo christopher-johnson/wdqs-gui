@@ -5762,6 +5762,189 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/* bootstrap-tags styles */
+.bootstrap-tags.bootstrap-3 .tag a {
+  margin: 0 0 0 .3em; }
+
+.bootstrap-tags.bootstrap-3 .glyphicon-white {
+  color: #fff; }
+
+.bootstrap-tags.bootstrap-2 .tag.md {
+  padding: .3em .4em .4em; }
+
+.bootstrap-tags.bootstrap-2 .tag.lg {
+  padding: .4em .4em .5em; }
+
+.bootstrap-tags {
+  position: relative; }
+
+.bootstrap-tags .tags {
+  width: inherit;
+  height: 0;
+  position: absolute;
+  padding: 0;
+  margin: 0; }
+
+.bootstrap-tags .tag-data {
+  display: none; }
+
+.bootstrap-tags .tags-input {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 1.7em;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box; }
+
+.bootstrap-tags .tag-list {
+  width: 280px;
+  height: auto;
+  min-height: 26px;
+  left: 2px;
+  top: 2px;
+  position: relative; }
+
+.bootstrap-tags .tag {
+  padding: .4em .4em .4em;
+  margin: 0 .1em;
+  float: left; }
+
+.bootstrap-tags .tag.sm {
+  padding: .4em .4em .5em;
+  font-size: 12px; }
+
+.bootstrap-tags .tag.md {
+  font-size: 14px; }
+
+.bootstrap-tags .tag.lg {
+  font-size: 18px;
+  padding: .4em .4em .4em;
+  margin: 0 .2em .2em 0; }
+
+.bootstrap-tags .tag a {
+  color: #bbb;
+  cursor: pointer;
+  opacity: .5; }
+
+.bootstrap-tags .tag .remove {
+  vertical-align: bottom;
+  top: 0; }
+
+.bootstrap-tags ul.tags-suggestion-list {
+  width: 300px;
+  height: auto;
+  list-style: none;
+  margin: 0;
+  z-index: 2;
+  max-height: 160px;
+  overflow: scroll; }
+
+.bootstrap-tags ul.tags-suggestion-list li.tags-suggestion {
+  padding: 3px 20px;
+  height: auto; }
+
+.bootstrap-tags ul.tags-suggestion-list li.tags-suggestion-highlighted {
+  color: white;
+  text-decoration: none;
+  background-color: #0081C2;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0); }
+
+/* fonts */
+div.jqcloud {
+  font-family: "Helvetica", "Arial", sans-serif;
+  font-size: 10px;
+  line-height: normal; }
+
+div.jqcloud a {
+  font-size: inherit;
+  text-decoration: none; }
+
+div.jqcloud span.w10 {
+  font-size: 550%; }
+
+div.jqcloud span.w9 {
+  font-size: 500%; }
+
+div.jqcloud span.w8 {
+  font-size: 450%; }
+
+div.jqcloud span.w7 {
+  font-size: 400%; }
+
+div.jqcloud span.w6 {
+  font-size: 350%; }
+
+div.jqcloud span.w5 {
+  font-size: 300%; }
+
+div.jqcloud span.w4 {
+  font-size: 250%; }
+
+div.jqcloud span.w3 {
+  font-size: 200%; }
+
+div.jqcloud span.w2 {
+  font-size: 150%; }
+
+div.jqcloud span.w1 {
+  font-size: 100%; }
+
+/* colors */
+div.jqcloud {
+  color: #09f; }
+
+div.jqcloud a {
+  color: inherit; }
+
+div.jqcloud a:hover {
+  color: #0df; }
+
+div.jqcloud a:hover {
+  color: #0cf; }
+
+div.jqcloud span.w10 {
+  color: #0cf; }
+
+div.jqcloud span.w9 {
+  color: #0cf; }
+
+div.jqcloud span.w8 {
+  color: #0cf; }
+
+div.jqcloud span.w7 {
+  color: #39d; }
+
+div.jqcloud span.w6 {
+  color: #90c5f0; }
+
+div.jqcloud span.w5 {
+  color: #90a0dd; }
+
+div.jqcloud span.w4 {
+  color: #90c5f0; }
+
+div.jqcloud span.w3 {
+  color: #a0ddff; }
+
+div.jqcloud span.w2 {
+  color: #99ccee; }
+
+div.jqcloud span.w1 {
+  color: #aab5f0; }
+
+/* layout */
+div.jqcloud {
+  overflow: hidden;
+  position: relative; }
+
+div.jqcloud span {
+  padding: 0; }
+
 table.dataTable {
   clear: both;
   margin-top: 6px !important;
@@ -6325,6 +6508,151 @@ span.CodeMirror-selectedtext {
 li.CodeMirror-hint-active {
   background: #08f;
   color: white; }
+
+.error {
+  margin: 20px;
+  overflow-x: scroll;
+  font-family: monospace;
+  white-space: pre; }
+
+#total,
+#query-result,
+#hide-explorer {
+  display: none; }
+
+#query-error {
+  display: none; }
+
+.error-line {
+  border-bottom: 2px dotted red; }
+
+.error-character {
+  background: green; }
+
+#query-result pre {
+  display: inline;
+  font-family: serif;
+  border: none;
+  background-color: inherit; }
+
+.exampleQueries {
+  width: 160px; }
+
+iframe.shortUrl {
+  border: none;
+  width: 250px;
+  height: 40px; }
+
+/**
+	Bootstrap Styles
+**/
+.navbar, .alert {
+  margin-bottom: 0; }
+
+.navbar-right {
+  margin-right: 0; }
+
+.label {
+  font-size: 100%; }
+
+.actionMessage {
+  display: none; }
+
+.popover {
+  max-width: 100%;
+  /* Max Width of the popover (depending on the container!) */ }
+
+/**
+	Query example dialog
+**/
+.QueryExamples input.tags-input {
+  visibility: hidden; }
+
+.QueryExamples .tagFilter {
+  padding-bottom: 0px !important; }
+
+.QueryExamples .exampleTable {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc; }
+
+iframe.shortUrl {
+  border: none;
+  width: 250px;
+  height: 40px; }
+
+.explorer-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  display: none;
+  min-height: 800px;
+  overflow: auto; }
+
+.vis-container {
+  min-height: 800px; }
+
+.vis-graph {
+  min-height: 800px;
+  float: left; }
+
+.vis-panel {
+  min-height: 800px;
+  width: 24em;
+  overflow: auto;
+  float: left; }
+
+.vis-network {
+  min-height: 800px; }
+
+/* colors */
+div.jqcloud {
+  color: #337ab7; }
+
+div.jqcloud a {
+  color: inherit; }
+
+div.jqcloud a:hover {
+  color: #337ab7; }
+
+div.jqcloud a:hover {
+  color: #337ab7; }
+
+div.jqcloud span.w10 {
+  color: #337ab7; }
+
+div.jqcloud span.w9 {
+  color: rgba(51, 122, 183, 0.9); }
+
+div.jqcloud span.w8 {
+  color: rgba(51, 122, 183, 0.8); }
+
+div.jqcloud span.w7 {
+  color: rgba(51, 122, 183, 0.75); }
+
+div.jqcloud span.w6 {
+  color: rgba(51, 122, 183, 0.6); }
+
+div.jqcloud span.w5 {
+  color: rgba(51, 122, 183, 0.65); }
+
+div.jqcloud span.w4 {
+  color: rgba(51, 122, 183, 0.5); }
+
+div.jqcloud span.w3 {
+  color: rgba(51, 122, 183, 0.55); }
+
+div.jqcloud span.w2 {
+  color: rgba(51, 122, 183, 0.4); }
+
+div.jqcloud span.w1 {
+  color: rgba(51, 122, 183, 0.45); }
+
+body {
+  padding-bottom: 50px; }
 
 .CodeMirror-hint {
   max-width: 30em; }

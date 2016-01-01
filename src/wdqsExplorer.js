@@ -2,7 +2,7 @@
 module.exports = Explorer;
 
 function Explorer( $, Vis, attachContent, rootId ) {
-
+    require('./wdqsExplorerPanel.js')($, Vis);
 
     var graphContainer = document.createElement('div');
     graphContainer.className = "vis-graph";
