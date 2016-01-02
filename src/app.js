@@ -19,14 +19,14 @@ var EXPLORE_URL = 'http://www.wikidata.org/entity/Q';
  * @param {wikibase.queryService.ui.Editor}
  * @param {wikibase.queryService.api.Sparql}
  */
-function App( $element, Mod, Editor, SparqlApi, QuerySamples, Tooltip, QueryExampleDialog,
+function App( $element, CodeMirror, Editor, SparqlApi, QuerySamples, Tooltip, QueryExampleDialog,
 			  RdfNamespaces, Vis, Explorer ) {
 	this._$element = $element;
 	this._queryExampleDialog = QueryExampleDialog;
 	this._RdfNamespaces = RdfNamespaces;
 	this._Vis = Vis;
 	this._Explorer = Explorer;
-	this._init($, SparqlApi, QuerySamples, Editor, Mod, Tooltip);
+	this._init($, SparqlApi, QuerySamples, Editor, CodeMirror, Tooltip);
 }
 
 /**
@@ -58,7 +58,7 @@ App.prototype._editor = null;
  * Initialize private members and call delegate to specific init methods
  * @private
  **/
-App.prototype._init = function($, SparqlApi, QuerySamples, Editor, Mod, Tooltip) {
+App.prototype._init = function($, SparqlApi, QuerySamples, Editor, CodeMirror, Tooltip) {
 
 	if( !this._sparqlApi ){
 		this._sparqlApi = new SparqlApi($);
@@ -69,7 +69,7 @@ App.prototype._init = function($, SparqlApi, QuerySamples, Editor, Mod, Tooltip)
 	}
 
 	if( !this._editor ){
-		this._editor = new Editor($, Mod, Tooltip);
+		this._editor = new Editor($, CodeMirror, Tooltip);
 	}
 
 	this._initEditor();

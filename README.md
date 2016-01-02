@@ -1,9 +1,11 @@
-# wdqs-gui [![Build Status][travis-image]][travis-url] 
+# wdqs-gui [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] 
 
+[npm-url]: https://npmjs.org/package/wdqs-gui
+[npm-image]: http://img.shields.io/npm/v/wdqs-gui.svg
 [travis-url]: https://travis-ci.org/christopher-johnson/wdqs-gui
 [travis-image]: http://img.shields.io/travis/christopher-johnson/wdqs-gui.svg
 
-## Developing WDQS-GUI
+### Developing WDQS-GUI
 
 * Make sure npm and gulp are installed
 * Run `npm install` from the gulp dir

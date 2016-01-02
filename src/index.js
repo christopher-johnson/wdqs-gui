@@ -25,8 +25,8 @@ module.exports.$ = $;
 
 var Vis = require('vis');
 require('bootstrap');
-var Explorer = require('./wdqsExplorer.js');
-var Mod = require('codemirror');
+var Explorer = require('wdqs-explorer');
+var CodeMirror = require('codemirror');
 var Tooltip = require('./codemirror/addon/tooltip/wikibaseRDFTooltip.js');
 var Editor = require('./editor.js');
 var QueryExampleDialog = require('./queryExampleDialog.js');
@@ -37,6 +37,6 @@ var App = require('./app.js');
 
 
 $( document ).ready( function () {
-    new App($('.wikibase-queryservice'),Mod, Editor, Sparql, QuerySamples, Tooltip,
+    new App($('.wikibase-queryservice'), CodeMirror, Editor, Sparql, QuerySamples, Tooltip,
         QueryExampleDialog, RdfNamespaces, Vis, Explorer);
 } );
