@@ -82,7 +82,10 @@
     "selectize": "git://github.com/brianreavis/selectize.js",
     "underscore": "^1.7.0",
     "vis": "latest",
-    "wdqs-explorer": "latest"
+    "wdqs-editor": "latest",
+    "wdqs-results": "latest",
+    "wdqs-explorer": "latest",
+    "wdqs-storage": "latest"
   },
   "browser": {
     "bootstrap-tagsinput": "./node_modules/bootstrap-tagsinput/src/bootstrap-tagsinput.js",
