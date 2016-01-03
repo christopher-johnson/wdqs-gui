@@ -302,10 +302,36 @@ App.prototype._handleQuerySubmit = function( e ) {
 App.prototype._getDTOptions = function() {
 	var options = {};
 	options = {
-		"pageLength": 50,
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"pagingType": "simple_numbers",
-		"aaSorting": []
+		"autoWidth": false,
+		"dom": '<"dtTopHeader"ilf>rtip',
+		"order": [], //disable initial sorting
+		"pageLength": 50, //default page length
+		"lengthMenu": [
+			[10, 50, 100, 1000, -1],
+			[10, 50, 100, 1000, "All"]
+		], //possible page lengths
+		"lengthChange": true, //allow changing page length
+		"pagingType": "full_numbers", //how to show the pagination options
+		"drawCallback": function(oSettings) {
+			//Hide pagination when we have a single page
+			var activePaginateButton = false;
+			$(oSettings.nTableWrapper).find(".paginate_button").each(function() {
+				if ($(this).attr("class").indexOf("current") == -1 && $(this).attr("class").indexOf("disabled") == -1) {
+					activePaginateButton = true;
+				}
+			});
+			if (activePaginateButton) {
+				$(oSettings.nTableWrapper).find(".dataTables_paginate").show();
+			} else {
+				$(oSettings.nTableWrapper).find(".dataTables_paginate").hide();
+			}
+		},
+		"columnDefs": [{
+			"width": "32px",
+			"orderable": false,
+			"targets": 0
+		} //disable row sorting for first col
+		]
 	};
 	return options;
 };
