@@ -201,47 +201,124 @@ SparqlApi.prototype.getQueryUri = function() {
  * @return {jQuery}
  */
 SparqlApi.prototype.getResultAsObject = function() {
-	var jstring = this.getResultAsJson();
+	var jstring = this.getResultAsAllJson();
 	return JSON && JSON.parse(jstring) || $.parseJSON(jstring);
 };
 
-/**
- * @private
- */
-SparqlApi.prototype._getColumnMap = function(obj) {
-	var aoColumn = [];
-	var columns = Object.getOwnPropertyNames (obj[0]);
-	$.each(columns, function (i, columns) {
-		aoColumn.push({
-			data: columns,
-			title: columns,
-			render: function ( data, type, full, meta ) {
-				return data.indexOf('http') ?
-					data : '<a href="' + data + '">' + SparqlApi.prototype.abbreviateUri(data) + '&nbsp;&nbsp;</a>';
+SparqlApi.prototype.getRows = function() {
+	var rows = [];
+	var bindings = this.getBindings();
+	var vars = this.getVariables();
+	var usedPrefixes = null;
+	for (var rowId = 0; rowId < bindings.length; rowId++) {
+		var row = [];
+		row.push(""); //row numbers
+		var binding = bindings[rowId];
+		for (var colId = 0; colId < vars.length; colId++) {
+			var sparqlVar = vars[colId];
+			if (sparqlVar in binding) {
+				if (this.getCellContent) {
+					row.push(this.getCellContent(binding, sparqlVar, {
+						'rowId': rowId,
+						'colId': colId,
+						'usedPrefixes': usedPrefixes
+					}));
+				} else {
+					row.push("");
+				}
+			} else {
+				row.push("");
 			}
-		});
-	});
-	return aoColumn;
+		}
+		rows.push(row);
+	}
+	return rows;
 };
 
-/**
- * getDataTable
- *
- * @return {Object}
- */
-SparqlApi.prototype.getDataTable = function() {
-	var obj = {};
-	var columns = {};
-	var table = {};
-	obj = this.getResultAsObject();
-	if (obj.length > 0) {
-		columns = this._getColumnMap(obj);
-		table = {
-			"data": obj,
-			"columns": columns
-		};
+SparqlApi.prototype.getColumns = function() {
+	var cols = [];
+	cols.push({
+		"title": ""
+	}); //row numbers column
+	this.getVariables().forEach(function(variable) {
+		cols.push({
+			"title": "<span>" + variable + "</span>",
+			"visible": variable
+		});
+	});
+	return cols;
+};
+
+SparqlApi.prototype.getVariables = function() {
+	var json = this.getResultAsObject();
+	if (json && "head" in json) {
+		return json.head.vars;
+	} else {
+		return null;
 	}
-	return table;
+};
+
+SparqlApi.prototype.getBindings = function() {
+	var json = this.getResultAsObject();
+	if (json && "results" in json) {
+		return json.results.bindings;
+	} else {
+		return null;
+	}
+};
+
+SparqlApi.prototype.getCellContent = function( bindings, sparqlVar, context) {
+	var binding = bindings[sparqlVar];
+	var value = null;
+	if (binding.type == "uri") {
+		var title = null;
+		var href = binding.value;
+		var visibleString = href;
+		if (context.usedPrefixes) {
+			for (var prefix in context.usedPrefixes) {
+				if (visibleString.indexOf(context.usedPrefixes[prefix]) == 0) {
+					visibleString = prefix + ':' + href.substring(context.usedPrefixes[prefix].length);
+					break;
+				}
+			}
+		}
+		value = "<a " + (title ? "title='" + href + "' " : "") + "class='uri' target='_blank' href='" + href + "'>" + visibleString + "</a>";
+	} else {
+		value = "<span class='nonUri'>" + formatLiteral(binding) + "</span>";
+	}
+	return "<div>" + value + "</div>";
+};
+
+var formatLiteral = function( literalBinding) {
+	var stringRepresentation = escapeHtmlEntities(literalBinding.value);
+	if (literalBinding["xml:lang"]) {
+		stringRepresentation = '"' + stringRepresentation + '"<sup>@' + literalBinding["xml:lang"] + '</sup>';
+	} else if (literalBinding.datatype) {
+		var xmlSchemaNs = "http://www.w3.org/2001/XMLSchema#";
+		var dataType = literalBinding.datatype;
+		if (dataType.indexOf(xmlSchemaNs) === 0) {
+			dataType = "xsd:" + dataType.substring(xmlSchemaNs.length);
+		} else {
+			dataType = "&lt;" + dataType + "&gt;";
+		}
+
+		stringRepresentation = '"' + stringRepresentation + '"<sup>^^' + dataType + '</sup>';
+	}
+	return stringRepresentation;
+};
+
+var escapeHtmlEntities = function(unescapedString) {
+	var tagsToReplace = {
+		'&': '&amp;',
+		'<': '&lt;',
+		'>': '&gt;'
+	};
+
+	var replaceTag = function(tag) {
+		return tagsToReplace[tag] || tag;
+	};
+
+	return unescapedString.replace(/[&<>]/g, replaceTag);
 };
 
 /**

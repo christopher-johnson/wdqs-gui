@@ -5953,6 +5953,13 @@ div.jqcloud span {
     .dataTables_wrapper .dataTables_length label, .dataTables_wrapper .dataTables_length select {
       vertical-align: middle; }
 
+table.dataTable {
+  width: 100%;
+  margin: 0 auto;
+  clear: both;
+  border-collapse: separate;
+  border-spacing: 0; }
+
 table.dataTable thead th {
   background: none !important;
   border-right: 1px dotted gray;
@@ -5981,6 +5988,18 @@ table.dataTable td div {
 .dtTopHeader .dataTables_info {
   padding-top: 0px;
   margin: 0px 10px; }
+
+table.dataTable tbody th, .yasr table.dataTable tbody td {
+  padding: 8px 10px; }
+
+div.dataTables_wrapper div.dataTables_info {
+  padding-top: 8px;
+  white-space: nowrap;
+  float: left; }
+
+table.dataTable thead th, .yasr table.dataTable thead td {
+  padding: 10px 18px;
+  border-bottom: 1px solid #111; }
 
 table.dataTable {
   clear: both;
@@ -6700,6 +6719,9 @@ div.dataTables_wrapper div.dataTables_info {
   padding: 10px 18px;
   border-bottom: 1px solid #111; }
 
+.table.dataTable tbody th, .table.dataTable tbody td {
+  padding: 8px 10px; }
+
 .CodeMirror-hint {
   max-width: 30em; }
 
@@ -6708,3 +6730,6 @@ div.dataTables_wrapper div.dataTables_info {
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 0; }
+
+.table.dataTable tbody th, .table.dataTable tbody td {
+  padding: 8px 10px; }

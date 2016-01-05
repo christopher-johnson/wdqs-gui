@@ -8,6 +8,14 @@
 		}
 	}
 }
+table.dataTable {
+	width: 100%;
+	margin: 0 auto;
+	clear: both;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
 table.dataTable thead th {
 	&:first-child, &:last-child {
 		border-right: 0;
@@ -20,6 +28,7 @@ table.dataTable thead th {
 		margin-left: 5px;
 	}
 }
+
 table.dataTable td div {
 	-ms-word-break: break-all;
      word-break: break-all;
@@ -46,4 +55,19 @@ table.dataTable td div {
 		padding-top: 0px;
 		margin: 0px 10px;
 	}
+}
+
+table.dataTable tbody th, .yasr table.dataTable tbody td {
+	padding: 8px 10px;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+	padding-top: 8px;
+	white-space: nowrap;
+	float: left;
+}
+
+table.dataTable thead th, .yasr table.dataTable thead td {
+	padding: 10px 18px;
+	border-bottom: 1px solid #111;
 }

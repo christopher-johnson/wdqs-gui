@@ -348,6 +348,28 @@ App.prototype._drawDataTable = function () {
 	}
 };
 
+App.prototype.draw = function() {
+	var table = null;
+	table = $('<table cellpadding="0" cellspacing="0" border="0" class="resultsTable table-striped"></table>');
+	$('#data-table').html(table);
+
+	var dataTableConfig = this._getDTOptions();
+	dataTableConfig.data = this._sparqlApi.getRows();
+	dataTableConfig.columns = this._sparqlApi.getColumns();
+
+	//fetch stored datatables length value
+	//var pLength = yutils.storage.get(tableLengthPersistencyId);
+	//if (pLength) dataTableConfig.pageLength = pLength;
+	table.DataTable($.extend(true, {}, dataTableConfig));
+
+//	drawSvgIcons();
+
+//	addEvents();
+
+	//finally, make the columns dragable:
+//	table.colResizable();
+};
+
 /**
  * @private
  */
@@ -357,14 +379,15 @@ App.prototype._handleQueryResult = function() {
 	$( '#total-results' ).text( api.getResultLength() );
 	$( '#query-time' ).text( api.getExecutionTime() );
 	$( '#total' ).show();
-	var table = api.getDataTable();
-	var options = this._getDTOptions();
-	var config = $.extend({}, table, options);
-	if (!config.data) {
-		return;
-	} else {
-		$('#data-table').DataTable(config);
-	}
+//	var table = api.getDataTable();
+//	var options = this._getDTOptions();
+//	var config = $.extend({}, table, options);
+//	if (!config.data) {
+//		return;
+//	} else {
+//		$('#data-table').DataTable(config);
+//	}
+	this.draw();
 	$( '.actionMessage' ).hide();
 	$( '#query-error' ).hide();
 
