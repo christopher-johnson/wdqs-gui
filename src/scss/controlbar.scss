@@ -52,7 +52,11 @@ $menuWidth: 600px;
 		margin-right: $controlbarPadding;
 		display:inline-block;
 	}
-	
+
+	.form-control {
+		padding: 0 0;
+	}
+
 	.menuButton {
 		display: inline-block;
 	  	vertical-align:middle;
