@@ -139,14 +139,3 @@ div.jqcloud span.w1 { color: rgba(51,122,183,0.45); }
 body {
 	padding-bottom: 50px;
 }
-
-div.dataTables_wrapper div.dataTables_info {
-	padding-top: 8px;
-	white-space: nowrap;
-	float: left;
-}
-
-.table.dataTable thead th, .yasr table.dataTable thead td {
-	padding: 10px 18px;
-	border-bottom: 1px solid #111;
-}
