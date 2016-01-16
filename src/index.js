@@ -4,7 +4,7 @@ var $ =  require('jquery'),
     EventEmitter = require('events').EventEmitter,
     bootstraptags = require('bootstrap-tagsinput'),
     jquerypopover = require('jquery-popover'),
-    wdqsstorage = require('wdqs-storage'),
+    Storage = require('wdqs-storage'),
     datatables = require('datatables.net')(),
     datatablesbs = require('datatables.net-bs')();
 require('./jquery/extendJquery.js');
@@ -26,18 +26,18 @@ var WDQSGUI = function(parent, options) {
     }
 
     if (wdqsgui.persistencyPrefix) {
-        var histFromStorage = wdqsstorage.storage.get(wdqsgui.persistencyPrefix + 'history');
+        var histFromStorage = Storage.storage.get(wdqsgui.persistencyPrefix + 'history');
         if (histFromStorage) wdqsgui.history = histFromStorage;
     }
 
     wdqsgui.store = function() {
         if (wdqsgui.persistentOptions) {
-            wdqsstorage.storage.set(wdqsgui.persistencyPrefix, wdqsgui.persistentOptions);
+            Storage.storage.set(wdqsgui.persistencyPrefix, wdqsgui.persistentOptions);
         }
     };
 
     var getSettingsFromStorage = function() {
-        var settings = wdqsstorage.storage.get(wdqsgui.persistencyPrefix);
+        var settings = Storage.storage.get(wdqsgui.persistencyPrefix);
         if (!settings) settings = {};
         return settings;
     };
@@ -385,6 +385,7 @@ var WDQSGUI = function(parent, options) {
     wdqsgui.addTab = addTab;
 
     wdqsgui.init();
+    wdqsgui.tracker = require('./tracker.js')(wdqsgui);
     wdqsgui.emit('ready');
 
     return wdqsgui;
@@ -403,7 +404,7 @@ module.exports = function(parent, options) {
 
 module.exports.$ = $;
 module.exports.WDQSQE = require('./wdqsqe.js');
-module.exports.WDQSR = require('wdqs-results');
+module.exports.WDQSR = require('./wdqsr.js');
 module.exports.defaults = require('./defaults.js');
 
 var Vis = require('vis');

@@ -153,10 +153,10 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 			//set value manualy, as this triggers a refresh
 			if (persistentOptions.wdqsqe.value) tab.wdqsqe.setValue(persistentOptions.wdqsqe.value);
 		}
-	}
+	};
 	$.extend(wdqsqeOptions, persistentOptions.wdqsqe);
 
-	var initYasr = function() {
+	var initWDQSR = function() {
 		if (!tab.wdqsr) {
 			var addQueryDuration = function(wdqsr, plugin) {
 				if (tab.wdqsqe.lastQueryDuration && plugin.name == "Table") {
@@ -167,7 +167,7 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 					}
 				}
 			}
-			if (!tab.wdqsqe) initYasqe(); //we need this one to initialize wdqsr
+			if (!tab.wdqsqe) initWDQSQE(); //we need this one to initialize wdqsr
 			var getQueryString = function() {
 				return persistentOptions.wdqsqe.sparql.endpoint + "?" +
 					$.param(tab.wdqsqe.getUrlArguments(persistentOptions.wdqsqe.sparql));
@@ -185,7 +185,7 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 		tab.wdqsqe.query();
 	};
 
-	var initYasqe = function() {
+	var initWDQSQE = function() {
 		if (!tab.wdqsqe) {
 			addControlBar();
 			WDQSGUI.WDQSQE.defaults.extraKeys['Ctrl-Enter'] = function() {
@@ -212,13 +212,13 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 			var beforeSend = null;
 			tab.wdqsqe.options.sparql.callbacks.beforeSend = function() {
 				beforeSend = +new Date();
-			}
+			};
 			tab.wdqsqe.options.sparql.callbacks.complete = function() {
 				var end = +new Date();
 				wdqsgui.tracker.track(persistentOptions.wdqsqe.sparql.endpoint, tab.wdqsqe.getValueWithoutComments(), end - beforeSend);
 				tab.wdqsr.setResponse.apply(this, arguments);
 				storeInHist();
-			}
+			};
 
 			tab.wdqsqe.query = function() {
 				var options = {}
@@ -252,10 +252,10 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 		}
 	};
 	tab.onShow = function() {
-		initYasqe();
+		initWDQSQE();
 		tab.wdqsqe.refresh();
-		initYasr();
-		if (wdqsgui.options.allowYasqeResize) {
+		initWDQSR();
+		if (wdqsgui.options.allowEditorResize) {
 			$(tab.wdqsqe.getWrapperElement()).resizable({
 				minHeight: 150,
 				handles: 's',
@@ -267,7 +267,7 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 				},
 				stop: function() {
 					persistentOptions.wdqsqe.height = $(this).height();
-					tab.wdqsqe.refresh()
+					tab.wdqsqe.refresh();
 					wdqsgui.store();
 				}
 			});
@@ -280,8 +280,8 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 	};
 
 	tab.beforeShow = function() {
-		initYasqe();
-	}
+		initWDQSQE();
+	};
 	tab.refreshYasqe = function() {
 		if (tab.wdqsqe) {
 			$.extend(true, tab.wdqsqe.options, tab.persistentOptions.wdqsqe);
@@ -299,16 +299,16 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 		Storage.storage.removeAll(function(key, val) {
 			return key.indexOf(tab.wdqsr.getPersistencyId('')) == 0;
 		})
-	}
+	};
 	tab.getEndpoint = function() {
 		var endpoint = null;
 		if (Storage.nestedExists(tab.persistentOptions, 'wdqsqe', 'sparql', 'endpoint')) {
 			endpoint = tab.persistentOptions.wdqsqe.sparql.endpoint;
 		}
 		return endpoint;
-	}
+	};
 
 	return tab;
-}
+};
 
 Tab.prototype = new EventEmitter;

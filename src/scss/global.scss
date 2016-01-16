@@ -1,4 +1,6 @@
 @import "style.css";
+@import "../../node_modules/wdqs-editor/dist/wdqs-editor.css";
+@import "../../node_modules/wdqs-results/dist/wdqs-results.css";
 
 .CodeMirror-hint {
   max-width: 30em;
