@@ -5,50 +5,50 @@ var $ = require('jquery'),
 	utils = require('./utils.js'),
 	Storage = require('wdqs-storage'),
 	_ = require('underscore'),
-	WDQSGUI = require('./index.js');
+	WDQSUI = require('./index.js');
 
 var defaultPersistent = {
 	wdqsqe: {
 		height: 300,
 		sparql: {
-			endpoint: WDQSGUI.WDQSQE.defaults.sparql.endpoint,
-			acceptHeaderGraph: WDQSGUI.WDQSQE.defaults.sparql.acceptHeaderGraph,
-			acceptHeaderSelect: WDQSGUI.WDQSQE.defaults.sparql.acceptHeaderSelect,
-			args: WDQSGUI.WDQSQE.defaults.sparql.args,
-			defaultGraphs: WDQSGUI.WDQSQE.defaults.sparql.defaultGraphs,
-			namedGraphs: WDQSGUI.WDQSQE.defaults.sparql.namedGraphs,
-			requestMethod: WDQSGUI.WDQSQE.defaults.sparql.requestMethod,
-			headers: WDQSGUI.WDQSQE.defaults.sparql.headers
+			endpoint: WDQSUI.WDQSQE.defaults.sparql.endpoint,
+			acceptHeaderGraph: WDQSUI.WDQSQE.defaults.sparql.acceptHeaderGraph,
+			acceptHeaderSelect: WDQSUI.WDQSQE.defaults.sparql.acceptHeaderSelect,
+			args: WDQSUI.WDQSQE.defaults.sparql.args,
+			defaultGraphs: WDQSUI.WDQSQE.defaults.sparql.defaultGraphs,
+			namedGraphs: WDQSUI.WDQSQE.defaults.sparql.namedGraphs,
+			requestMethod: WDQSUI.WDQSQE.defaults.sparql.requestMethod,
+			headers: WDQSUI.WDQSQE.defaults.sparql.headers
 		}
 	}
 };
 
-module.exports = function(wdqsgui, id, name, endpoint) {
-	return new Tab(wdqsgui, id, name, endpoint);
+module.exports = function(wdqsui, id, name, endpoint) {
+	return new Tab(wdqsui, id, name, endpoint);
 };
 
-var Tab = function(wdqsgui, id, name, endpoint) {
+var Tab = function(wdqsui, id, name, endpoint) {
 	EventEmitter.call(this);
-	if (!wdqsgui.persistentOptions.tabs[id]) {
-		wdqsgui.persistentOptions.tabs[id] = $.extend(true, {
+	if (!wdqsui.persistentOptions.tabs[id]) {
+		wdqsui.persistentOptions.tabs[id] = $.extend(true, {
 			id: id,
 			name: name
 		}, defaultPersistent);
 	} else {
-		wdqsgui.persistentOptions.tabs[id] = $.extend(true, {}, defaultPersistent, wdqsgui.persistentOptions.tabs[id]);
+		wdqsui.persistentOptions.tabs[id] = $.extend(true, {}, defaultPersistent, wdqsui.persistentOptions.tabs[id]);
 	}
-	var persistentOptions = wdqsgui.persistentOptions.tabs[id];
+	var persistentOptions = wdqsui.persistentOptions.tabs[id];
 	if (endpoint) persistentOptions.wdqsqe.sparql.endpoint = endpoint;
 	var tab = this;
 	tab.persistentOptions = persistentOptions;
 
-	var menu = require('./tabPaneMenu.js')(wdqsgui, tab);
+	var menu = require('./tabPaneMenu.js')(wdqsui, tab);
 	var $pane = $('<div>', {
 		id: persistentOptions.id,
 		style: 'position:relative',
 		class: 'tab-pane',
 		role: 'tabpanel'
-	}).appendTo(wdqsgui.$tabPanesParent);
+	}).appendTo(wdqsui.$tabPanesParent);
 
 	var $paneContent = $('<div>', {
 		class: 'wrapper'
@@ -92,12 +92,12 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 		//add endpoint text input
 		$endpointInput = $('<select>')
 			.appendTo($controlBar)
-			.endpointCombi(wdqsgui, {
+			.endpointCombi(wdqsui, {
 				value: persistentOptions.wdqsqe.sparql.endpoint,
 				onChange: function(val) {
 					persistentOptions.wdqsqe.sparql.endpoint = val;
 					tab.refreshYasqe();
-					wdqsgui.store();
+					wdqsui.store();
 
 				}
 			});
@@ -117,8 +117,8 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 	var wdqsqeOptions = {
 		createShareLink: require('./shareLink').getCreateLinkHandler(tab)
 	};
-	if (wdqsgui.options.api.urlShortener) {
-		wdqsqeOptions.createShortLink = require('./shareLink').getShortLinkHandler(wdqsgui)
+	if (wdqsui.options.api.urlShortener) {
+		wdqsqeOptions.createShortLink = require('./shareLink').getShortLinkHandler(wdqsui)
 	}
 	var storeInHist = function() {
 		persistentOptions.wdqsqe.value = tab.wdqsqe.getValue(); //in case the onblur hasnt happened yet
@@ -131,17 +131,17 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 			resultSize: resultSize
 		};
 		delete histObject.options.name; //don't store this one
-		wdqsgui.history.unshift(histObject);
+		wdqsui.history.unshift(histObject);
 
 		var maxHistSize = 50;
-		if (wdqsgui.history.length > maxHistSize) {
-			wdqsgui.history = wdqsgui.history.slice(0, maxHistSize);
+		if (wdqsui.history.length > maxHistSize) {
+			wdqsui.history = wdqsui.history.slice(0, maxHistSize);
 		}
 
 
 		//store in localstorage as well
-		if (wdqsgui.persistencyPrefix) {
-			Storage.storage.set(wdqsgui.persistencyPrefix + 'history', wdqsgui.history);
+		if (wdqsui.persistencyPrefix) {
+			Storage.storage.set(wdqsui.persistencyPrefix + 'history', wdqsui.history);
 		}
 
 
@@ -172,8 +172,8 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 				return persistentOptions.wdqsqe.sparql.endpoint + "?" +
 					$.param(tab.wdqsqe.getUrlArguments(persistentOptions.wdqsqe.sparql));
 			};
-			WDQSGUI.WDQSR.plugins.error.defaults.tryQueryLink = getQueryString;
-			tab.wdqsr = WDQSGUI.WDQSR(wdqsrContainer[0], $.extend({
+			WDQSUI.WDQSR.plugins.error.defaults.tryQueryLink = getQueryString;
+			tab.wdqsr = WDQSUI.WDQSR(wdqsrContainer[0], $.extend({
 				//this way, the URLs in the results are prettified using the defined prefixes in the query
 				getUsedPrefixes: tab.wdqsqe.getPrefixesFromQuery
 			}, persistentOptions.wdqsr));
@@ -188,26 +188,26 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 	var initWDQSQE = function() {
 		if (!tab.wdqsqe) {
 			addControlBar();
-			WDQSGUI.WDQSQE.defaults.extraKeys['Ctrl-Enter'] = function() {
+			WDQSUI.WDQSQE.defaults.extraKeys['Ctrl-Enter'] = function() {
 				tab.wdqsqe.query.apply(this, arguments)
 			};
-			WDQSGUI.WDQSQE.defaults.extraKeys['Cmd-Enter'] = function() {
+			WDQSUI.WDQSQE.defaults.extraKeys['Cmd-Enter'] = function() {
 				tab.wdqsqe.query.apply(this, arguments)
 			};
-			tab.wdqsqe = WDQSGUI.WDQSQE(wdqsqeContainer[0], wdqsqeOptions);
+			tab.wdqsqe = WDQSUI.WDQSQE(wdqsqeContainer[0], wdqsqeOptions);
 			tab.wdqsqe.setSize("100%", persistentOptions.wdqsqe.height);
 			tab.wdqsqe.on('blur', function(wdqsqe) {
 				persistentOptions.wdqsqe.value = wdqsqe.getValue();
-				wdqsgui.store();
+				wdqsui.store();
 			});
 			tab.wdqsqe.on('query', function() {
 
-				wdqsgui.$tabsParent.find('a[href="#' + id + '"]').closest('li').addClass('querying');
-				wdqsgui.emit('query', wdqsgui, tab);
+				wdqsui.$tabsParent.find('a[href="#' + id + '"]').closest('li').addClass('querying');
+				wdqsui.emit('query', wdqsui, tab);
 			});
 			tab.wdqsqe.on('queryFinish', function() {
-				wdqsgui.$tabsParent.find('a[href="#' + id + '"]').closest('li').removeClass('querying');
-				wdqsgui.emit('queryFinish', wdqsgui, tab);
+				wdqsui.$tabsParent.find('a[href="#' + id + '"]').closest('li').removeClass('querying');
+				wdqsui.emit('queryFinish', wdqsui, tab);
 			});
 			var beforeSend = null;
 			tab.wdqsqe.options.sparql.callbacks.beforeSend = function() {
@@ -215,7 +215,7 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 			};
 			tab.wdqsqe.options.sparql.callbacks.complete = function() {
 				var end = +new Date();
-				wdqsgui.tracker.track(persistentOptions.wdqsqe.sparql.endpoint, tab.wdqsqe.getValueWithoutComments(), end - beforeSend);
+				wdqsui.tracker.track(persistentOptions.wdqsqe.sparql.endpoint, tab.wdqsqe.getValueWithoutComments(), end - beforeSend);
 				tab.wdqsr.setResponse.apply(this, arguments);
 				storeInHist();
 			};
@@ -224,8 +224,8 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 				var options = {}
 				options = $.extend(true, options, tab.wdqsqe.options.sparql);
 
-				if (wdqsgui.options.api.corsProxy && wdqsgui.corsEnabled) {
-					if (!wdqsgui.corsEnabled[persistentOptions.wdqsqe.sparql.endpoint]) {
+				if (wdqsui.options.api.corsProxy && wdqsui.corsEnabled) {
+					if (!wdqsui.corsEnabled[persistentOptions.wdqsqe.sparql.endpoint]) {
 						//use the proxy //name value
 
 						options.args.push({
@@ -237,13 +237,13 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 							value: options.requestMethod
 						});
 						options.requestMethod = "POST";
-						options.endpoint = wdqsgui.options.api.corsProxy;
-						WDQSGUI.WDQSQE.executeQuery(tab.wdqsqe, options);
+						options.endpoint = wdqsui.options.api.corsProxy;
+						WDQSUI.WDQSQE.executeQuery(tab.wdqsqe, options);
 					} else {
-						WDQSGUI.WDQSQE.executeQuery(tab.wdqsqe, options);
+						WDQSUI.WDQSQE.executeQuery(tab.wdqsqe, options);
 					}
 				} else {
-					WDQSGUI.WDQSQE.executeQuery(tab.wdqsqe, options);
+					WDQSUI.WDQSQE.executeQuery(tab.wdqsqe, options);
 				}
 			};
 
@@ -255,7 +255,7 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 		initWDQSQE();
 		tab.wdqsqe.refresh();
 		initWDQSR();
-		if (wdqsgui.options.allowEditorResize) {
+		if (wdqsui.options.allowEditorResize) {
 			$(tab.wdqsqe.getWrapperElement()).resizable({
 				minHeight: 150,
 				handles: 's',
@@ -268,13 +268,13 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 				stop: function() {
 					persistentOptions.wdqsqe.height = $(this).height();
 					tab.wdqsqe.refresh();
-					wdqsgui.store();
+					wdqsui.store();
 				}
 			});
 			$(tab.wdqsqe.getWrapperElement()).find('.ui-resizable-s').click(function() {
 				$(tab.wdqsqe.getWrapperElement()).css('height', 'auto');
 				persistentOptions.wdqsqe.height = 'auto';
-				wdqsgui.store();
+				wdqsui.store();
 			})
 		}
 	};
@@ -292,7 +292,7 @@ var Tab = function(wdqsgui, id, name, endpoint) {
 		if (!tab.wdqsr) {
 			//instantiate wdqsr (without rendering results, to avoid load)
 			//this way, we can clear the wdqsr persistent results
-			tab.wdqsr = WDQSGUI.WDQSR(wdqsrContainer[0], {
+			tab.wdqsr = WDQSUI.WDQSR(wdqsrContainer[0], {
 				outputPlugins: []
 			}, '');
 		}

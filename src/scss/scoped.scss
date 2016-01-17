@@ -1,4 +1,4 @@
-.wdqs-gui {
+.wdqs-ui {
   @import "bootstrap.scss";
   @import "bootstrap-tags.css";
   @import "controlbar.scss";
@@ -10,7 +10,6 @@
   @import "wdqsqe.scss";
   @import "wdqsr.scss";
   @import "../../node_modules/jquery-ui/themes/base/jquery.ui.resizable.css";
-  @import "../../node_modules/codemirror/addon/hint/show-hint.css";
   @import "../../node_modules/selectize/dist/css/selectize.css";
   @import "../../node_modules/selectize/dist/css/selectize.bootstrap3.css";
   @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";

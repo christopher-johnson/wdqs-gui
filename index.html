@@ -2,8 +2,8 @@
 <html>
 <head>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="dist/wdqs-gui.min.js"></script>
-	<link rel="stylesheet" href="dist/wdqs-gui.min.css">
+	<script src="dist/wdqs-ui.min.js"></script>
+	<link rel="stylesheet" href="dist/wdqs-ui.min.css">
 	<link href="doc/doc.min.css" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="//www.wikidata.org/static/favicon/testwikidata.ico">
 	<title>Wikidata Query Service</title>
@@ -71,7 +71,7 @@
 		</button>
 		<p>Data last updated: <span id="dbUpdated">[connecting]</span></p>
 	</div>
-	<div id="wdqs-gui"></div>
+	<div id="wdqs-ui"></div>
 	<div class="row">
 		<div id="query-error" class="panel-heading">Test error</div>
 	</div>
@@ -115,6 +115,6 @@
 	</div>
 </body>
 <script type="text/javascript">
-	var wdqsgui = WDQSGUI(document.getElementById("wdqs-gui"));
+	var wdqsui = WDQSUI(document.getElementById("wdqs-ui"));
 </script>
 </html>

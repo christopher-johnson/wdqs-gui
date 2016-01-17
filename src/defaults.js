@@ -2,8 +2,8 @@
 
 var $ = require('jquery');
 module.exports = {
-    persistencyPrefix: function(wdqsgui) {
-        return "wdqsgui_" + $(wdqsgui.wrapperElement).closest('[id]').attr('id') + "_";
+    persistencyPrefix: function(wdqsui) {
+        return "wdqsui_" + $(wdqsui.wrapperElement).closest('[id]').attr('id') + "_";
     },
     allowEditorResize: true,
     api: {

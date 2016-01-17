@@ -1,7 +1,7 @@
 'use strict';
 var $ = require('jquery'),
 	selectize = require('selectize'),
-	utils = require('yasgui-utils');
+	Storage = require('wdqs-storage');
 
 
 
@@ -68,7 +68,7 @@ $.fn.endpointCombi = function(yasgui, options) {
 		};
 
 
-		utils.storage.set(persistencyId, endpoints);
+		Storage.storage.set(persistencyId, endpoints);
 
 
 
@@ -80,18 +80,18 @@ $.fn.endpointCombi = function(yasgui, options) {
 		if (yasgui.persistencyPrefix) {
 			persistencyId = yasgui.persistencyPrefix + 'endpoint_' + optGroup;
 		}
-		var endpoints = utils.storage.get(persistencyId);
+		var endpoints = Storage.storage.get(persistencyId);
 		if (endpoints) return callback(endpoints, optGroup);
 
 		if (optGroup == 'catalogue' && yasgui.options.catalogueEndpoints) {
 			if (typeof yasgui.options.catalogueEndpoints == 'function') {
 				return yasgui.options.catalogueEndpoints(yasgui, function(endpoints) {
-					if (endpoints) utils.storage.set(persistencyId, endpoints);
+					if (endpoints) Storage.storage.set(persistencyId, endpoints);
 					callback(endpoints, optGroup);
 				});
 			} else if (typeof yasgui.options.catalogueEndpoints == 'object') {
 				endpoints = yasgui.options.catalogueEndpoints;
-				utils.storage.set(persistencyId, endpoints);
+				Storage.storage.set(persistencyId, endpoints);
 				callback(endpoints, optGroup);
 			}
 		}

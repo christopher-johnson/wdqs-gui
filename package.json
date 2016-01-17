@@ -1,6 +1,6 @@
 {
-  "name": "wdqs-gui",
-  "description": "Wikidata Query Service GUI",
+  "name": "wdqs-ui",
+  "description": "Wikidata Query Service UI",
   "version": "0.1.1",
   "main": "src/index.js",
   "license": "MIT",
@@ -64,7 +64,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/christopher-johnson/wdqs-gui.git"
+    "url": "https://github.com/christopher-johnson/wdqs-ui.git"
   },
   "dependencies": {
     "bootstrap": "latest",

@@ -2,11 +2,11 @@ var Storage = require('wdqs-storage'),
 	Svg = require('../lib/svg.js'),
 	imgs = require('./imgs.js'),
 	$ = require('jquery');
-module.exports = function(wdqsgui) {
+module.exports = function(wdqsui) {
 
-	var enabled = !!(wdqsgui.options.tracker.googleAnalyticsId);
+	var enabled = !!(wdqsui.options.tracker.googleAnalyticsId);
 	var trackEvents = true;
-	var cookieId = "wdqsgui_" + $(wdqsgui.wrapperElement).closest('[id]').attr('id') + '_trackerId';
+	var cookieId = "wdqsui_" + $(wdqsui.wrapperElement).closest('[id]').attr('id') + '_trackerId';
 
 	var updateStatus = function() {
 		/*
@@ -31,7 +31,7 @@ module.exports = function(wdqsgui) {
 		}
 	}
 	var init = function() {
-		if (wdqsgui.options.tracker.googleAnalyticsId) {
+		if (wdqsui.options.tracker.googleAnalyticsId) {
 
 			updateStatus();
 
@@ -48,7 +48,7 @@ module.exports = function(wdqsgui) {
 				m.parentNode.insertBefore(a, m)
 			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-			ga('create', wdqsgui.options.tracker.googleAnalyticsId, 'auto');
+			ga('create', wdqsui.options.tracker.googleAnalyticsId, 'auto');
 			ga('send', 'pageview');
 
 		}
@@ -59,7 +59,7 @@ module.exports = function(wdqsgui) {
 	var drawConsentWindow = function() {
 		var consentDiv = $('<div>', {
 			class: 'consentWindow'
-		}).appendTo(wdqsgui.wrapperElement);
+		}).appendTo(wdqsui.wrapperElement);
 		var hide = function() {
 			consentDiv.hide(400);
 		};

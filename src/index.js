@@ -9,43 +9,43 @@ var $ =  require('jquery'),
     datatablesbs = require('datatables.net-bs')();
 require('./jquery/extendJquery.js');
 
-var setWDQSGUIOptions = function(options) {
+var setWDQSUIOptions = function(options) {
 };
 
-var WDQSGUI = function(parent, options) {
+var WDQSUI = function(parent, options) {
     EventEmitter.call(this);
-    var wdqsgui = this;
-    wdqsgui.wrapperElement = $('<div class="wdqs-gui"></div>').appendTo($(parent));
-    wdqsgui.options = $.extend(true, {}, module.exports.defaults, options);
-    setWDQSGUIOptions(wdqsgui.options);
-    wdqsgui.history = [];
+    var wdqsui = this;
+    wdqsui.wrapperElement = $('<div class="wdqs-ui"></div>').appendTo($(parent));
+    wdqsui.options = $.extend(true, {}, module.exports.defaults, options);
+    setWDQSUIOptions(wdqsui.options);
+    wdqsui.history = [];
 
-    wdqsgui.persistencyPrefix = null;
-    if (wdqsgui.options.persistencyPrefix) {
-        wdqsgui.persistencyPrefix = (typeof wdqsgui.options.persistencyPrefix == 'function' ? wdqsgui.options.persistencyPrefix(wdqsgui) : wdqsgui.options.persistencyPrefix);
+    wdqsui.persistencyPrefix = null;
+    if (wdqsui.options.persistencyPrefix) {
+        wdqsui.persistencyPrefix = (typeof wdqsui.options.persistencyPrefix == 'function' ? wdqsui.options.persistencyPrefix(wdqsui) : wdqsui.options.persistencyPrefix);
     }
 
-    if (wdqsgui.persistencyPrefix) {
-        var histFromStorage = Storage.storage.get(wdqsgui.persistencyPrefix + 'history');
-        if (histFromStorage) wdqsgui.history = histFromStorage;
+    if (wdqsui.persistencyPrefix) {
+        var histFromStorage = Storage.storage.get(wdqsui.persistencyPrefix + 'history');
+        if (histFromStorage) wdqsui.history = histFromStorage;
     }
 
-    wdqsgui.store = function() {
-        if (wdqsgui.persistentOptions) {
-            Storage.storage.set(wdqsgui.persistencyPrefix, wdqsgui.persistentOptions);
+    wdqsui.store = function() {
+        if (wdqsui.persistentOptions) {
+            Storage.storage.set(wdqsui.persistencyPrefix, wdqsui.persistentOptions);
         }
     };
 
     var getSettingsFromStorage = function() {
-        var settings = Storage.storage.get(wdqsgui.persistencyPrefix);
+        var settings = Storage.storage.get(wdqsui.persistencyPrefix);
         if (!settings) settings = {};
         return settings;
     };
 
-    wdqsgui.persistentOptions = getSettingsFromStorage();
-    var persistentOptions = wdqsgui.persistentOptions;
+    wdqsui.persistentOptions = getSettingsFromStorage();
+    var persistentOptions = wdqsui.persistentOptions;
 
-    wdqsgui.tabs = {};
+    wdqsui.tabs = {};
 
     //the actual tabs parent containing the ul of tab buttons
     var $tabsParent;
@@ -66,8 +66,8 @@ var WDQSGUI = function(parent, options) {
     };
 
     var tabNameTaken = function(name) {
-        for (var tabId in wdqsgui.tabs) {
-            if (wdqsgui.tabs[tabId].persistentOptions.name == name) {
+        for (var tabId in wdqsui.tabs) {
+            if (wdqsui.tabs[tabId].persistentOptions.name == name) {
                 return true;
             }
         }
@@ -79,19 +79,19 @@ var WDQSGUI = function(parent, options) {
     };
 
 
-    wdqsgui.init = function() {
+    wdqsui.init = function() {
 
         //tab panel contains tabs and panes
         $tabPanel = $('<div>', {
             role: 'tabpanel'
-        }).appendTo(wdqsgui.wrapperElement);
+        }).appendTo(wdqsui.wrapperElement);
 
         //init tabs
         $tabsParent = $('<ul>', {
             class: 'nav nav-tabs mainTabs',
             role: 'tablist'
         }).appendTo($tabPanel);
-        wdqsgui.$tabsParent = $tabsParent;
+        wdqsui.$tabsParent = $tabsParent;
 
         //init add button
         var $addTab = $('<a>', {
@@ -109,7 +109,7 @@ var WDQSGUI = function(parent, options) {
         );
 
         //init panes
-        wdqsgui.$tabPanesParent = $('<div>', {
+        wdqsui.$tabPanesParent = $('<div>', {
             class: 'tab-content'
         }).appendTo($tabPanel);
 
@@ -128,16 +128,16 @@ var WDQSGUI = function(parent, options) {
             persistentOptions.tabs[tabId] = optionsFromUrl;
             persistentOptions.tabOrder.push(tabId);
             persistentOptions.selected = tabId;
-            wdqsgui.once('ready', function() {
+            wdqsui.once('ready', function() {
                 if (persistentOptions.tabs[tabId].yasr.outputSettings) {
-                    var plugin = wdqsgui.current().yasr.plugins[persistentOptions.tabs[tabId].yasr.output];
+                    var plugin = wdqsui.current().yasr.plugins[persistentOptions.tabs[tabId].yasr.output];
                     if (plugin.options) {
                         $.extend(plugin.options, persistentOptions.tabs[tabId].yasr.outputSettings);
                     }
                     delete persistentOptions.tabs[tabId]['yasr']['outputSettings'];
                 }
 
-                wdqsgui.current().query();
+                wdqsui.current().query();
             })
         }
 
@@ -158,7 +158,7 @@ var WDQSGUI = function(parent, options) {
                     newTabOrder.push($(this).attr('aria-controls'));
                 });
                 persistentOptions.tabOrder = newTabOrder;
-                wdqsgui.store();
+                wdqsui.store();
             }
 
         });
@@ -166,7 +166,7 @@ var WDQSGUI = function(parent, options) {
         //Add context menu
         $contextMenu = $('<div>', {
             class: 'tabDropDown'
-        }).appendTo(wdqsgui.wrapperElement);
+        }).appendTo(wdqsui.wrapperElement);
         var $contextMenuList = $('<ul>', {
             class: 'dropdown-menu',
             role: 'menu'
@@ -220,18 +220,18 @@ var WDQSGUI = function(parent, options) {
 
     var selectTab = function(id) {
         $tabsParent.find('a[aria-controls="' + id + '"]').tab('show');
-        return wdqsgui.current();
+        return wdqsui.current();
     };
 
-    wdqsgui.selectTab = selectTab;
+    wdqsui.selectTab = selectTab;
     var closeTab = function(id) {
         /**
          * cleanup local storage
          */
-        wdqsgui.tabs[id].destroy();
+        wdqsui.tabs[id].destroy();
 
         /**cleanup variables**/
-        delete wdqsgui.tabs[id];
+        delete wdqsui.tabs[id];
         delete persistentOptions.tabs[id];
         var orderIndex = persistentOptions.tabOrder.indexOf(id);
         if (orderIndex > -1) persistentOptions.tabOrder.splice(orderIndex, 1);
@@ -256,10 +256,10 @@ var WDQSGUI = function(parent, options) {
         $("#" + id).remove();
 
 
-        wdqsgui.store();
-        return wdqsgui.current();
+        wdqsui.store();
+        return wdqsui.current();
     };
-    wdqsgui.closeTab = closeTab;
+    wdqsui.closeTab = closeTab;
     var addTab = function(tabId) {
         var newItem = !tabId;
         if (!tabId) tabId = getRandomId();
@@ -273,8 +273,8 @@ var WDQSGUI = function(parent, options) {
 
         //Initialize new tab with endpoint from currently selected tab (if there is one)
         var endpoint = null;
-        if (wdqsgui.current() && wdqsgui.current().getEndpoint()) {
-            endpoint = wdqsgui.current().getEndpoint();
+        if (wdqsui.current() && wdqsui.current().getEndpoint()) {
+            endpoint = wdqsui.current().getEndpoint();
         }
 
         //first add tab
@@ -287,12 +287,12 @@ var WDQSGUI = function(parent, options) {
             .click(function(e) {
                 e.preventDefault();
                 $(this).tab('show');
-                wdqsgui.tabs[tabId].yasqe.refresh();
+                wdqsui.tabs[tabId].yasqe.refresh();
             })
             .on('shown.bs.tab', function(e) {
                 persistentOptions.selected = $(this).attr('aria-controls');
-                wdqsgui.tabs[tabId].onShow();
-                wdqsgui.store();
+                wdqsui.tabs[tabId].onShow();
+                wdqsui.store();
             })
             .append($('<div>', {class: 'loader'}))
             .append($('<span>').text(name))
@@ -323,7 +323,7 @@ var WDQSGUI = function(parent, options) {
             var val = $liEl.find('input').val();
             $tabToggle.find('span').text($liEl.find('input').val());
             persistentOptions.tabs[tabId].name = val;
-            wdqsgui.store();
+            wdqsui.store();
             $liEl.removeClass('rename');
         };
         var $tabItem = $("<li>", {
@@ -370,36 +370,36 @@ var WDQSGUI = function(parent, options) {
         $tabsParent.find('li:has(a[role="addTab"])').before($tabItem);
 
         if (newItem) persistentOptions.tabOrder.push(tabId);
-        wdqsgui.tabs[tabId] = require('./tab.js')(wdqsgui, tabId, name, endpoint);
+        wdqsui.tabs[tabId] = require('./tab.js')(wdqsui, tabId, name, endpoint);
         if (newItem || persistentOptions.selected == tabId) {
-            wdqsgui.tabs[tabId].beforeShow();
+            wdqsui.tabs[tabId].beforeShow();
             $tabToggle.tab('show');
         }
-        return wdqsgui.tabs[tabId];
+        return wdqsui.tabs[tabId];
     };
 
 
-    wdqsgui.current = function() {
-        return wdqsgui.tabs[persistentOptions.selected];
+    wdqsui.current = function() {
+        return wdqsui.tabs[persistentOptions.selected];
     };
-    wdqsgui.addTab = addTab;
+    wdqsui.addTab = addTab;
 
-    wdqsgui.init();
-    wdqsgui.tracker = require('./tracker.js')(wdqsgui);
-    wdqsgui.emit('ready');
+    wdqsui.init();
+    wdqsui.tracker = require('./tracker.js')(wdqsui);
+    wdqsui.emit('ready');
 
-    return wdqsgui;
+    return wdqsui;
 };
 
 
 
 
-WDQSGUI.prototype = new EventEmitter;
+WDQSUI.prototype = new EventEmitter;
 
 module.exports = function(parent, options) {
     //new App($('.wdqs-gui'), CodeMirror, Editor, Sparql, QuerySamples, Tooltip,
        // QueryExampleDialog, RdfNamespaces, Vis, Explorer);
-    return new WDQSGUI(parent, options);
+    return new WDQSUI(parent, options);
 };
 
 module.exports.$ = $;
