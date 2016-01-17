@@ -5348,7 +5348,7 @@ This perspective messes up the full screen capabilities of YASR/YASQE, and posit
       border-bottom-color: #B6B6B6; }
       .wdqs-ui .wdqsqe .CodeMirror.ui-resizable .ui-resizable-s {
         cursor: ns-resize; }
-  .wdqs-ui .yasr .CodeMirror {
+  .wdqs-ui .wdqsr .CodeMirror {
     border-color: #ddd; }
   .wdqs-ui .ui-resizable {
     position: relative; }
@@ -7886,6 +7886,7 @@ li.CodeMirror-hint-active {
   background-color: #f9f9f9 !important; }
 
 .wdqsr table.dataTable thead th {
+  background-color: rgba(0, 0, 0, 0.075) !important;
   background: none !important;
   border-right: 1px dotted gray;
   padding: 7px 0px; }

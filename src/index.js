@@ -129,12 +129,12 @@ var WDQSUI = function(parent, options) {
             persistentOptions.tabOrder.push(tabId);
             persistentOptions.selected = tabId;
             wdqsui.once('ready', function() {
-                if (persistentOptions.tabs[tabId].yasr.outputSettings) {
-                    var plugin = wdqsui.current().yasr.plugins[persistentOptions.tabs[tabId].yasr.output];
+                if (persistentOptions.tabs[tabId].wdqsr.outputSettings) {
+                    var plugin = wdqsui.current().wdqsr.plugins[persistentOptions.tabs[tabId].wdqsr.output];
                     if (plugin.options) {
-                        $.extend(plugin.options, persistentOptions.tabs[tabId].yasr.outputSettings);
+                        $.extend(plugin.options, persistentOptions.tabs[tabId].wdqsr.outputSettings);
                     }
-                    delete persistentOptions.tabs[tabId]['yasr']['outputSettings'];
+                    delete persistentOptions.tabs[tabId]['wdqsr']['outputSettings'];
                 }
 
                 wdqsui.current().query();

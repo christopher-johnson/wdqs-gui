@@ -101,14 +101,14 @@ module.exports = {
 			});
 
 			/**
-			 * Now set YASR settings
+			 * Now set WDQSR settings
 			 */
 			params.push({
 				name: 'outputFormat',
-				value: tab.yasr.options.output
+				value: tab.wdqsr.options.output
 			});
-			if (tab.yasr.plugins[tab.yasr.options.output].getPersistentSettings) {
-				var persistentPluginSettings = tab.yasr.plugins[tab.yasr.options.output].getPersistentSettings();
+			if (tab.wdqsr.plugins[tab.wdqsr.options.output].getPersistentSettings) {
+				var persistentPluginSettings = tab.wdqsr.plugins[tab.wdqsr.options.output].getPersistentSettings();
 				if (typeof persistentPluginSettings == "object") {
 					persistentPluginSettings = JSON.stringify(persistentPluginSettings);
 				}
@@ -140,7 +140,7 @@ module.exports = {
 			wdqsqe: {
 				sparql: {}
 			},
-			yasr: {}
+			wdqsr: {}
 		};
 
 		var params = getUrlParams();
@@ -153,9 +153,9 @@ module.exports = {
 			} else if (paramPair.name == 'outputFormat') {
 				var output = paramPair.value;
 				if (output == 'simpleTable') output = 'table'; //this query link is from v1. don't have this plugin anymore
-				options.yasr.output = output;
+				options.wdqsr.output = output;
 			} else if (paramPair.name == 'outputSettings') {
-				options.yasr.outputSettings = JSON.parse(paramPair.value);
+				options.wdqsr.outputSettings = JSON.parse(paramPair.value);
 			} else if (paramPair.name == 'contentTypeConstruct') {
 				options.wdqsqe.sparql.acceptHeaderGraph = paramPair.value;
 			} else if (paramPair.name == 'contentTypeSelect') {
