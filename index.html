@@ -1,134 +1,85 @@
 <!doctype html>
 <html>
 <head>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="dist/wdqs-gui.min.js"></script>
-<link rel="stylesheet" href="dist/wdqs-gui.min.css">
-
-<link rel="shortcut icon" href="//www.wikidata.org/static/favicon/testwikidata.ico">
-
-<title>Wikidata Query Service (Beta)</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="dist/wdqs-ui.min.js"></script>
+	<link rel="stylesheet" href="dist/wdqs-ui.min.css">
+	<link href="doc/doc.min.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="//www.wikidata.org/static/favicon/testwikidata.ico">
+	<title>Wikidata Query Service</title>
 </head>
 <body>
-	<div class="wikibase-queryservice">
-			<nav class="navbar navbar-inverse">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">Wikidata Query Service</a>
-					</div>
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li role="presentation" class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-									Prefixes<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu">
-									<li><div class="namespace-shortcuts"></div></li>
-									<li role="separator" class="divider"></li>
-									<li><a class="addPrefixes">Add Standard Prefixes</a></li>
-								</ul>
-							</li>
-							<li role="presentation" class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-									Tools<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a target="_blank" href="https://github.com/wikimedia/wikidata-query-rdf/blob/master/docs/exploring-linked-data.md">Exploring Linked Data</a></li>
-									<li><a target="_blank" href="https://tools.wmflabs.org/wdq2sparql/w2s.php">WDQ Syntax Translator</a></li>
-									<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikidata_query_service/User_Manual#SPARQL_endpoint">SPARQL REST Endpoint</a></li>
-								</ul>
-							</li>
-							<li role="presentation" class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-									Help<span class="caret"></span>
-								</a>
-								<ul class="dropdown-menu">
-									<li><a target="_blank" href="https://www.mediawiki.org/w/index.php?title=Talk:Wikidata_query_service&action=edit&section=new">Give Feedback!</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikidata_query_service/User_Manual">User Manual</a></li>
-									<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikibase/Indexing/SPARQL_Query_Examples">Sample Queries</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format">RDF Data Model</a></li>
-									<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format#Full_list_of_prefixes">List of prefixes</a></li>
-								</ul>
-							</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li>
-								<button type="button" class="btn btn-danger navbar-btn" data-toggle="modal" data-target="#QueryExamples"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Examples</button>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-			<div class="alert alert-success alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<p>Data last updated: <span id="dbUpdated">[connecting]</span></p>
-			</div>
-			<div id="query-box">
-				<form id="query-form">
-					<textarea class="queryEditor" name="query" placeholder="(Input a SPARQL query or choose a query example)"></textarea>
-					<nav class="navbar navbar-default">
-						<div class="navbar-form navbar-left">
-							<div class="form-group">
-								<input class="btn btn-default" type="submit" id="execute-button" value="Execute"> <input class="btn btn-default" type="reset" id="clear-button" value="Clear">
-							</div>
-						</div>
-						<ul class="nav navbar-nav navbar-left" id="total">
-							<li><a href="#" data-toggle="dropdown" class="dropdown-toggle"> <span class="glyphicon glyphicon-download-alt" aria-hidden="true">Download</span><span class="caret"></span>
-							</a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a id="downloadCSV" href="#">CSV</a></li>
-									<li><a id="downloadTSV" href="#">TSV</a></li>
-									<li><a id="downloadJSON" href="#">JSON</a></li>
-									<li><a id="downloadSimple-TSV" href="#">Simple TSV</a></li>
-									<li><a id="downloadFull-JSON" href="#">Full JSON</a></li>
-								</ul></li>
-							<li>
-								  <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    <span class="glyphicon glyphicon-link" aria-hidden="true">Link</span><span class="caret"></span>
-								  </a>
-								  <ul class="dropdown-menu">
-									<li><a href="#" target="_blank" title="Short URL to this page" data-toggle="popover" id="shorturl">Create Short URL</a></li>
-									<li><a target="_blank" title="SPARQL endpoint REST request" class="queryUri">SPARQL Query</a></li>
-								  </ul>
-							</li>
-						</ul>
-					</nav>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="actionMessage panel-heading label label-danger">Action</div>
-		</div>
-		<div class="row">
-			<div id="query-error" class="panel-heading">Test error</div>
-		</div>
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
-			<table id="data-table" class="table table-striped dataTable no-footer" cellspacing="0" width="100%"></table>
-		</div>
-		<div class="explorer-panel panel panel-default">
-		    <div class="panel-heading clearfix">
-		      <h1 class="panel-title pull-left" style="padding-top: 7.5px;">Explorer</h1>
-		      <div class="btn-group pull-right">
-		        <a href="#" class="btn btn-default btn-sm explorer-close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Close</a>
-		      </div>
-		    </div>
-			<div class="panel-body">
-				<div class="explorer"></div>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Wikidata Query Service</a>
 			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li role="presentation" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							Prefixes<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><div class="namespace-shortcuts"></div></li>
+							<li role="separator" class="divider"></li>
+							<li><a class="addPrefixes">Add Standard Prefixes</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							Tools<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a target="_blank" href="https://github.com/wikimedia/wikidata-query-rdf/blob/master/docs/exploring-linked-data.md">Exploring Linked Data</a></li>
+							<li><a target="_blank" href="https://tools.wmflabs.org/wdq2sparql/w2s.php">WDQ Syntax Translator</a></li>
+							<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikidata_query_service/User_Manual#SPARQL_endpoint">SPARQL REST Endpoint</a></li>
+						</ul>
+					</li>
+					<li role="presentation" class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+							Help<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a target="_blank" href="https://www.mediawiki.org/w/index.php?title=Talk:Wikidata_query_service&action=edit&section=new">Give Feedback!</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikidata_query_service/User_Manual">User Manual</a></li>
+							<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikibase/Indexing/SPARQL_Query_Examples">Sample Queries</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format">RDF Data Model</a></li>
+							<li><a target="_blank" href="https://www.mediawiki.org/wiki/Wikibase/Indexing/RDF_Dump_Format#Full_list_of_prefixes">List of prefixes</a></li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<button type="button" class="btn btn-danger navbar-btn" data-toggle="modal" data-target="#QueryExamples"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>Examples</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div id="wdqs-ui"></div>
+	<div class="row">
+		<div id="query-error" class="panel-heading">Test error</div>
+	</div>
+	<div class="explorer-panel panel panel-default">
+		<div class="panel-heading clearfix">
+		  <h1 class="panel-title pull-left" style="padding-top: 7.5px;">Explorer</h1>
+		  <div class="btn-group pull-right">
+			<a href="#" class="btn btn-default btn-sm explorer-close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Close</a>
+		  </div>
+		</div>
+		<div class="panel-body">
+			<div class="explorer"></div>
 		</div>
 	</div>
-
-
 	<!-- Query Example Modal -->
 	<div class="modal fade QueryExamples" id="QueryExamples" tabindex="-1" role="dialog" aria-labelledby="QueryExamplesModalLabel">
 		<div class="modal-dialog modal-lg" role="document">
@@ -157,4 +108,7 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	var wdqsui = WDQSUI(document.getElementById("wdqs-ui"));
+</script>
 </html>

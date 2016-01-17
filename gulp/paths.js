@@ -1,6 +1,6 @@
 module.exports = {
 	style: ['src/scss/scoped.scss', 'src/scss/global.scss'],
 	bundleDir: "dist",
-	bundleName: "wdqs-gui",
+	bundleName: "wdqs-ui",
 	docDir: "doc"
 };

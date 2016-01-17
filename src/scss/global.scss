@@ -1,5 +1,10 @@
 @import "style.css";
+@import "../../node_modules/wdqs-editor/dist/wdqs-editor.css";
+@import "../../node_modules/wdqs-results/dist/wdqs-results.css";
 
+div.modal-dialog.google-visualization-charteditor-dialog{
+  z-index: 100;
+}
 .CodeMirror-hint {
   max-width: 30em;
 }

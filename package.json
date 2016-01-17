@@ -1,7 +1,7 @@
 {
-  "name": "wdqs-gui",
-  "description": "Wikidata Query Service GUI",
-  "version": "0.1.1",
+  "name": "wdqs-ui",
+  "description": "Wikidata Query Service UI",
+  "version": "0.1.2",
   "main": "src/index.js",
   "license": "MIT",
   "author": "",
@@ -64,7 +64,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/christopher-johnson/wdqs-gui.git"
+    "url": "https://github.com/christopher-johnson/wdqs-ui.git"
   },
   "dependencies": {
     "bootstrap": "latest",
@@ -82,7 +82,10 @@
     "selectize": "git://github.com/brianreavis/selectize.js",
     "underscore": "^1.7.0",
     "vis": "latest",
-    "wdqs-explorer": "latest"
+    "wdqs-editor": "latest",
+    "wdqs-results": "latest",
+    "wdqs-explorer": "latest",
+    "wdqs-storage": "latest"
   },
   "browser": {
     "bootstrap-tagsinput": "./node_modules/bootstrap-tagsinput/src/bootstrap-tagsinput.js",
