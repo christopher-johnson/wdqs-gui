@@ -287,7 +287,7 @@ var WDQSUI = function(parent, options) {
             .click(function(e) {
                 e.preventDefault();
                 $(this).tab('show');
-                wdqsui.tabs[tabId].yasqe.refresh();
+                wdqsui.tabs[tabId].wdqsqe.refresh();
             })
             .on('shown.bs.tab', function(e) {
                 persistentOptions.selected = $(this).attr('aria-controls');
@@ -407,16 +407,16 @@ module.exports.WDQSQE = require('./wdqsqe.js');
 module.exports.WDQSR = require('./wdqsr.js');
 module.exports.defaults = require('./defaults.js');
 
-var Vis = require('vis');
+//var Vis = require('vis');
 require('bootstrap');
-var Explorer = require('wdqs-explorer');
+//var Explorer = require('wdqs-explorer');
 //var CodeMirror = require('codemirror');
 //var Tooltip = require('./codemirror/addon/tooltip/wikibaseRDFTooltip.js');
 //var Editor = require('./editor.js');
-var QueryExampleDialog = require('./queryExampleDialog.js');
-var Sparql = require('./api/sparqlApi.js');
-var QuerySamples = require('./api/querySamples.js');
-var RdfNamespaces = require('./rdfNamespaces.js');
+//var QueryExampleDialog = require('./queryExampleDialog.js');
+//var Sparql = require('./api/sparqlApi.js');
+//var QuerySamples = require('./api/querySamples.js');
+//var RdfNamespaces = require('./rdfNamespaces.js');
 //var App = require('./app.js');
 
 

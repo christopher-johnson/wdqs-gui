@@ -40,10 +40,10 @@ var getUrlParams = function() {
 };
 
 module.exports = {
-	getShortLinkHandler: function(yasgui) {
+	getShortLinkHandler: function(wdqsui) {
 		return function(url, callback) {
 			$.ajax({
-				url: yasgui.options.api.urlShortener,
+				url: wdqsui.options.api.urlShortener,
 				data: {
 					url: url
 				},
@@ -63,37 +63,37 @@ module.exports = {
 			 */
 			var params = [{
 				name: 'query',
-				value: tab.yasqe.getValue()
+				value: tab.wdqsqe.getValue()
 			}, {
 				name: 'contentTypeConstruct',
-				value: tab.persistentOptions.yasqe.sparql.acceptHeaderGraph
+				value: tab.persistentOptions.wdqsqe.sparql.acceptHeaderGraph
 			}, {
 				name: 'contentTypeSelect',
-				value: tab.persistentOptions.yasqe.sparql.acceptHeaderSelect
+				value: tab.persistentOptions.wdqsqe.sparql.acceptHeaderSelect
 			}, {
 				name: 'endpoint',
-				value: tab.persistentOptions.yasqe.sparql.endpoint
+				value: tab.persistentOptions.wdqsqe.sparql.endpoint
 			}, {
 				name: 'requestMethod',
-				value: tab.persistentOptions.yasqe.sparql.requestMethod
+				value: tab.persistentOptions.wdqsqe.sparql.requestMethod
 			}, {
 				name: 'tabTitle',
 				value: tab.persistentOptions.name
 			}, {
 				name: 'headers',
-				value: JSON.stringify(tab.persistentOptions.yasqe.sparql.headers)
+				value: JSON.stringify(tab.persistentOptions.wdqsqe.sparql.headers)
 			}];
 
-			tab.persistentOptions.yasqe.sparql.args.forEach(function(paramPair) {
+			tab.persistentOptions.wdqsqe.sparql.args.forEach(function(paramPair) {
 				params.push(paramPair);
 			});
-			tab.persistentOptions.yasqe.sparql.namedGraphs.forEach(function(ng) {
+			tab.persistentOptions.wdqsqe.sparql.namedGraphs.forEach(function(ng) {
 				params.push({
 					name: 'namedGraph',
 					value: ng
 				});
 			});
-			tab.persistentOptions.yasqe.sparql.defaultGraphs.forEach(function(dg) {
+			tab.persistentOptions.wdqsqe.sparql.defaultGraphs.forEach(function(dg) {
 				params.push({
 					name: 'defaultGraph',
 					value: dg
@@ -137,7 +137,7 @@ module.exports = {
 	},
 	getOptionsFromUrl: function() {
 		var options = {
-			yasqe: {
+			wdqsqe: {
 				sparql: {}
 			},
 			yasr: {}
@@ -149,7 +149,7 @@ module.exports = {
 		params.forEach(function(paramPair) {
 			if (paramPair.name == 'query') {
 				validYasguiOptions = true;
-				options.yasqe.value = paramPair.value;
+				options.wdqsqe.value = paramPair.value;
 			} else if (paramPair.name == 'outputFormat') {
 				var output = paramPair.value;
 				if (output == 'simpleTable') output = 'table'; //this query link is from v1. don't have this plugin anymore
@@ -157,31 +157,31 @@ module.exports = {
 			} else if (paramPair.name == 'outputSettings') {
 				options.yasr.outputSettings = JSON.parse(paramPair.value);
 			} else if (paramPair.name == 'contentTypeConstruct') {
-				options.yasqe.sparql.acceptHeaderGraph = paramPair.value;
+				options.wdqsqe.sparql.acceptHeaderGraph = paramPair.value;
 			} else if (paramPair.name == 'contentTypeSelect') {
-				options.yasqe.sparql.acceptHeaderSelect = paramPair.value;
+				options.wdqsqe.sparql.acceptHeaderSelect = paramPair.value;
 			} else if (paramPair.name == 'endpoint') {
-				options.yasqe.sparql.endpoint = paramPair.value;
+				options.wdqsqe.sparql.endpoint = paramPair.value;
 			} else if (paramPair.name == 'requestMethod') {
-				options.yasqe.sparql.requestMethod = paramPair.value;
+				options.wdqsqe.sparql.requestMethod = paramPair.value;
 			} else if (paramPair.name == 'tabTitle') {
 				options.name = paramPair.value;
 			} else if (paramPair.name == 'namedGraph') {
-				if (!options.yasqe.sparql.namedGraphs) options.yasqe.sparql.namedGraphs = [];
-				options.yasqe.sparql.namedGraphs.push(paramPair.value);
+				if (!options.wdqsqe.sparql.namedGraphs) options.wdqsqe.sparql.namedGraphs = [];
+				options.wdqsqe.sparql.namedGraphs.push(paramPair.value);
 			} else if (paramPair.name == 'defaultGraph') {
-				if (!options.yasqe.sparql.defaultGraphs) options.yasqe.sparql.defaultGraphs = [];
-				options.yasqe.sparql.defaultGraphs.push(paramPair.value);
+				if (!options.wdqsqe.sparql.defaultGraphs) options.wdqsqe.sparql.defaultGraphs = [];
+				options.wdqsqe.sparql.defaultGraphs.push(paramPair.value);
 			} else if (paramPair.name == 'headers') {
-				if (!options.yasqe.sparql.headers) options.yasqe.sparql.headers = {};
+				if (!options.wdqsqe.sparql.headers) options.wdqsqe.sparql.headers = {};
 				var headers = JSON.parse(paramPair.value);
 				if ($.isPlainObject(headers)) {
-					options.yasqe.sparql.headers = headers;
+					options.wdqsqe.sparql.headers = headers;
 				}
 			} else {
-				if (!options.yasqe.sparql.args) options.yasqe.sparql.args = [];
+				if (!options.wdqsqe.sparql.args) options.wdqsqe.sparql.args = [];
 				//regular arguments. So store them as regular arguments
-				options.yasqe.sparql.args.push(paramPair);
+				options.wdqsqe.sparql.args.push(paramPair);
 			}
 		});
 		if (validYasguiOptions) {

@@ -324,7 +324,7 @@ module.exports = function(yasgui, tab) {
 		if ($menu.find('.tabPaneMenuTabs li.active').length == 0) $menu.find('.tabPaneMenuTabs a:first').tab('show');
 
 		//we got most of the html. Now set the values in the html
-		var options = tab.persistentOptions.yasqe;
+		var options = tab.persistentOptions.wdqsqe;
 
 
 		//Request method
@@ -390,13 +390,13 @@ module.exports = function(yasgui, tab) {
 		} else {
 			yasgui.history.forEach(function(histObject) {
 
-				var text = histObject.options.yasqe.sparql.endpoint;
+				var text = histObject.options.wdqsqe.sparql.endpoint;
 				if (histObject.resultSize) text += ' (' + histObject.resultSize + ' results)';
 				$histList.append(
 					$('<a>', {
 						class: 'list-group-item',
 						href: '#',
-						title: histObject.options.yasqe.value
+						title: histObject.options.wdqsqe.value
 					})
 					.text(text)
 					.click(function(e) {
@@ -417,7 +417,7 @@ module.exports = function(yasgui, tab) {
 	};
 
 	var store = function() {
-		var options = tab.persistentOptions.yasqe.sparql;
+		var options = tab.persistentOptions.wdqsqe.sparql;
 		if ($btnPost.hasClass('active')) {
 			options.requestMethod = "POST";
 		} else if ($btnGet.hasClass('active')) {
