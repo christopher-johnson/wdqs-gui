@@ -5,7 +5,7 @@ var $ = require('jquery'),
 	utils = require('wdqs-storage');
 
 
-module.exports = function(yasgui, tab) {
+module.exports = function(wdqsui, tab) {
 	var $menu = null;
 	var $tabPanel = null;
 	var $tabsParent = null;
@@ -27,11 +27,11 @@ module.exports = function(yasgui, tab) {
 			id: 'navmenu'
 		});
 //		$menu.append(
-//			$(utils.svg.getElement(imgs.yasgui))
-//			.addClass('yasguiLogo')
+//			$(utils.svg.getElement(imgs.wdqsui))
+//			.addClass('wdqsuiLogo')
 //			.attr('title', 'About YASGUI')
 //			.click(function() {
-//				window.open('http://about.yasgui.org', '_blank');
+//				window.open('http://about.wdqsui.org', '_blank');
 //			})
 //		);
 
@@ -59,7 +59,7 @@ module.exports = function(yasgui, tab) {
 		var li = $("<li>", {
 			role: "presentation"
 		}).appendTo($tabsParent);
-		var reqPaneId = 'yasgui_reqConfig_' + tab.persistentOptions.id;
+		var reqPaneId = 'wdqsui_reqConfig_' + tab.persistentOptions.id;
 		li.append(
 			$('<a>', {
 				href: '#' + reqPaneId,
@@ -216,7 +216,7 @@ module.exports = function(yasgui, tab) {
 		var li = $("<li>", {
 			role: "presentation"
 		}).appendTo($tabsParent);
-		var historyPaneId = 'yasgui_history_' + tab.persistentOptions.id;
+		var historyPaneId = 'wdqsui_history_' + tab.persistentOptions.id;
 		li.append(
 			$('<a>', {
 				href: '#' + historyPaneId,
@@ -245,11 +245,11 @@ module.exports = function(yasgui, tab) {
 		/**
 		 * Init collections tab
 		 */
-		if (yasgui.options.api.collections) {
+		if (wdqsui.options.api.collections) {
 			var li = $("<li>", {
 				role: "presentation"
 			}).appendTo($tabsParent);
-			var collectionsPaneId = 'yasgui_collections_' + tab.persistentOptions.id;
+			var collectionsPaneId = 'wdqsui_collections_' + tab.persistentOptions.id;
 			li.append(
 				$('<a>', {
 					href: '#' + collectionsPaneId,
@@ -376,7 +376,7 @@ module.exports = function(yasgui, tab) {
 		 * update history tab
 		 */
 		$histList.empty();
-		if (yasgui.history.length == 0) {
+		if (wdqsui.history.length == 0) {
 			$histList.append(
 				$('<a>', {
 					class: 'list-group-item disabled',
@@ -388,7 +388,7 @@ module.exports = function(yasgui, tab) {
 				})
 			)
 		} else {
-			yasgui.history.forEach(function(histObject) {
+			wdqsui.history.forEach(function(histObject) {
 
 				var text = histObject.options.wdqsqe.sparql.endpoint;
 				if (histObject.resultSize) text += ' (' + histObject.resultSize + ' results)';
@@ -401,11 +401,11 @@ module.exports = function(yasgui, tab) {
 					.text(text)
 					.click(function(e) {
 						//update tab
-						var tab = yasgui.tabs[histObject.options.id];
+						var tab = wdqsui.tabs[histObject.options.id];
 						$.extend(true, tab.persistentOptions, histObject.options);
 						tab.refreshYasqe();
 
-						yasgui.store();
+						wdqsui.store();
 
 						//and close menu
 						$menu.closest('.tab-pane').removeClass('menu-open');
@@ -479,7 +479,7 @@ module.exports = function(yasgui, tab) {
 			if (inputVals[0] && inputVals[0].trim().length > 0) namedGraphs.push(inputVals[0]);
 		});
 		options.namedGraphs = namedGraphs;
-		yasgui.store();
+		wdqsui.store();
 		tab.setPersistentInYasqe();
 	};
 

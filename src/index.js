@@ -378,7 +378,6 @@ var WDQSUI = function(parent, options) {
         return wdqsui.tabs[tabId];
     };
 
-
     wdqsui.current = function() {
         return wdqsui.tabs[persistentOptions.selected];
     };

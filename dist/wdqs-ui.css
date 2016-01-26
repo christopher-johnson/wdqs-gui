@@ -1,5 +1,6 @@
 @charset "UTF-8";
 .wdqs-ui {
+  position: relative;
   /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
   /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
   /* bootstrap-tags styles */
@@ -8015,11 +8016,14 @@ li.CodeMirror-hint-active {
 div.modal-dialog.google-visualization-charteditor-dialog {
   z-index: 100; }
 
-.CodeMirror-hint {
-  max-width: 30em; }
+.CodeMirror-hints {
+  z-index: 100; }
 
 .navbar-inverse {
   background: #242438;
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 0; }
+
+.table.dataTable tbody th, .table.dataTable tbody td {
+  padding: 8px 10px; }

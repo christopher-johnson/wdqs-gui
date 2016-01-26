@@ -7,8 +7,9 @@ module.exports = {
     },
     allowEditorResize: true,
     api: {
-        corsProxy: null,
-        collections: null
+        corsProxy: "/proxy/",
+        urlShortener: "/shorten",
+        collections: "/collections"
     },
     tracker: {
         googleAnalyticsId: null,
